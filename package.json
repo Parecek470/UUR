@@ -14,10 +14,13 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.0.2",
     "@mui/material": "^7.0.2",
+    "@mui/x-data-grid": "^8.2.0",
+    "@mui/x-data-grid-premium": "^8.2.0",
     "framer-motion": "^12.9.2",
     "lucide-react": "^0.503.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-modal": "^3.16.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",

@@ -1,0 +1,30 @@
+.startingposition {
+    color: #33ff43;
+}
+.finish {
+    color: indianred;
+}
+.emptyspace {
+    color: #66eac9;
+}
+.wall {
+    color: #802c2c;
+}
+.lights {
+    color: #ffff66;
+}
+.doors {
+    color: #8b4513;
+}
+.solidobjects {
+    color: #808080;
+}
+.enemies {
+    color: #ff0000;
+}
+.collectables {
+    color: #ffd700;
+}
+.other {
+    color: #9370db;
+}

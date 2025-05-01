@@ -1,11 +1,7 @@
-import Navbar from './Navbar';
-import { AccessAlarm, ThreeDRotation } from '@mui/icons-material';
-import {HomeIcon} from "lucide-react";
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import Person2Icon from '@mui/icons-material/Person2';
 import SplitButton from './SplitButton';
 import {useState} from "react";
-import FloatingWindow from "./FloatingWindow.jsx";
+import BasicModal from "./BasicModal.jsx";
+import NestedList from "./NestedList.jsx";
 
 
 function App() {
@@ -13,11 +9,14 @@ function App() {
 
 
 
+
+
     return(<div>
         <SplitButton options={['new profile', 'profile','another profile']} onCreateMenu={setIsOpen}/>
-        <FloatingWindow isOpen={isOpen} onClose={() => setIsOpen(false)}>
-            <div style={{backgroundColor:'aqua', width:'100px', height:'100px'}}></div>
-        </FloatingWindow>
+        {isOpen&&<BasicModal isOpen={isOpen} setIsOpen={setIsOpen}>
+            <NestedList/>
+        </BasicModal>}
+        <div style={{backgroundColor:'aqua', width:'100px', height:'100px'}}></div>
 
         <p>{isOpen?'true':'false'}</p>
     </div>);
