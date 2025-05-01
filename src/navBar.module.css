@@ -1,0 +1,29 @@
+.navBar{
+    height: 50Px;
+    background: aqua;
+    align-items: flex-end;
+    margin: 0;
+
+
+}
+.headText{
+    text-align: center;
+    font-family: "Comic Sans MS";
+    margin: 0;
+
+}
+.profileMenu{
+    position: relative;
+    border-radius: 20px;
+    background: #616fff;
+    width: fit-content;
+    align-content: flex-end;
+}
+.profileBtn{
+    display: flex;
+    height: 20px;
+    border-radius: 10px;
+    background: dodgerblue;
+    border-style: none;
+
+}
