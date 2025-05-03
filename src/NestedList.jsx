@@ -6,14 +6,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
-import SendIcon from '@mui/icons-material/Send';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import StarBorder from '@mui/icons-material/StarBorder';
 import StartIcon from '@mui/icons-material/Start';
 import * as PropTypes from "prop-types";
 import {useRef} from "react";
+import { useProfile } from './ProfileContext';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import {ListItem} from "@mui/material";
 import InboxTwoToneIcon from '@mui/icons-material/InboxTwoTone';
@@ -32,8 +31,7 @@ function ExpandableItem(props) {
     };
 
     // Get color from CSS module or fallback to provided Color prop
-    const categoryKey = props.Category?.toLowerCase().replace(' ', '') || '';
-    const color = styles[categoryKey]?.color || props.Color;
+    const color = props.Color;
 
     const fadeColor = (color) => {
         if (!color) return 'rgba(128, 128, 128, 0.7)'; // Default gray if no color
@@ -109,9 +107,9 @@ function SimpleItem(props) {
 
     // Get color from CSS module or fallback to provided Color prop
     const categoryKey = props.Category?.toLowerCase().replace(' ', '') || '';
-    const color = styles[categoryKey]?.color || props.Color;
+    const color = props.Color;
 
-    return <ListItem style={{
+    return <ListItem className={styles.simple} style={{
         backgroundColor: color,
         borderRadius: 10,
         boxShadow: '0px 0px 33px rgba(0,0,0,0.75)',
@@ -134,6 +132,7 @@ SimpleItem.propTypes = {
 
 
 export default function NestedList() {
+    const profile = useProfile();
     return (
         <List
             sx={{width: '100%', bgcolor: 'background.paper' }}
@@ -141,11 +140,15 @@ export default function NestedList() {
             aria-labelledby="nested-list-subheader"
 
         >
-            <SimpleItem Category={categories[0]} Color={styles.startingposition?.color || "red"} Icon={<StartIcon/>}/>
-            <SimpleItem Category={categories[1]} Color={styles.finish?.color || "green"} Icon={<InboxTwoToneIcon/>}/>
-            <ExpandableItem Category={categories[2]} Color={styles.emptyspace?.color || "#66eac9"} Icon={<WindowTwoToneIcon/>}/>
-            <ExpandableItem Category={categories[3]} Color={styles.wall?.color || "#802c2c"} Icon={<WindowTwoToneIcon/>}/>
+            {Object.entries(profile).map(([key, value]) => (
+                value.expandable?<ExpandableItem Category={key} Color={styles.expandable.color} Icon={value.icon}/>:
+                    <SimpleItem Category={key} Color={styles.simple.color} Icon={value.icon}/>
+
+
+            ))}
 
         </List>
     );
 }
+
+

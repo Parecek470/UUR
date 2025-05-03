@@ -10,7 +10,6 @@ function App() {
 
 
 
-
     return(<div>
         <SplitButton options={['new profile', 'profile','another profile']} onCreateMenu={setIsOpen}/>
         {isOpen&&<BasicModal isOpen={isOpen} setIsOpen={setIsOpen}>
