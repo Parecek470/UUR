@@ -15,7 +15,6 @@ function App() {
         {isOpen&&<BasicModal isOpen={isOpen} setIsOpen={setIsOpen}>
             <NestedList/>
         </BasicModal>}
-        <div style={{backgroundColor:'aqua', width:'100px', height:'100px'}}></div>
 
         <p>{isOpen?'true':'false'}</p>
     </div>);

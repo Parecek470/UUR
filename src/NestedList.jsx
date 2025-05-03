@@ -59,7 +59,7 @@ function ExpandableItem(props) {
     };
 
     return <>
-        <ListItem onClick={handleClick} style={{
+        <ListItem onClick={handleClick} className={styles.expandable} style={{
             backgroundColor: color,
             borderRadius: open ? '10px 10px 0 0' : 10,
             boxShadow: '0px 0px 33px rgba(0,0,0,0.75)',
@@ -72,13 +72,19 @@ function ExpandableItem(props) {
             <ListItemText primary={props.Category || "Default"}/>
             {open ? <ExpandLess/> : <ExpandMore/>}
         </ListItem>
-        <Collapse in={open} timeout="auto" unmountOnExit>
+        <Collapse in={open} timeout='auto' unmountOnExit>
             <List component="div" disablePadding style={{
                 backgroundColor: fadeColor(color),
                 boxShadow: '0px 10px 33px rgba(0,0,0,0.75)',
                 marginBottom: '10px',
-                borderRadius: '0 0 10px 10px'
+                borderRadius: '0 0 10px 10px',
             }}>
+                <ListItem sx={{pl: 4}}>
+                    <ListItemIcon>
+                        <StarBorder/>
+                    </ListItemIcon>
+                    <ListItemText primary={color}/>
+                </ListItem>
                 <ListItem sx={{pl: 4}}>
                     <ListItemIcon>
                         <StarBorder/>

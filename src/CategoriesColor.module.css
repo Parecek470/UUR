@@ -1,36 +1,36 @@
 .startingposition {
-    color: #33ff43;
+    background-color: #33ff43;
 }
 .finish {
-    color: indianred;
+    background-color: indianred;
 }
 .emptyspace {
-    color: #66eac9;
+    background-color: #66eac9;
 }
 .wall {
-    color: #802c2c;
+    background-color: #802c2c;
 }
 .lights {
-    color: #ffff66;
+    background-color: #ffff66;
 }
 .doors {
-    color: #8b4513;
+    background-color: #8b4513;
 }
 .solidobjects {
-    color: #808080;
+    background-color: #808080;
 }
 .enemies {
-    color: #ff0000;
+    background-color: #ff0000;
 }
 .collectables {
-    color: #ffd700;
+    background-color: #ffd700;
 }
 .other {
-    color: #9370db;
+    background-color: #9370db;
 }
 .simple {
-    color: #70cfdb;
+    background-color: #70cfdb;
 }
 .expandable {
-    color: #4694ed;
+    background-color: #4694ed;
 }

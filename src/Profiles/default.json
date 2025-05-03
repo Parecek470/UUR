@@ -1,0 +1,14 @@
+"profile": {
+    "name": "Default",
+    "description": "Default profile for all users.",
+    "settings": {
+        "theme": "light",
+        "language": "en-US",
+        "notifications": true
+    },
+    "permissions": {
+        "read": true,
+        "write": false,
+        "execute": false
+    }
+}
