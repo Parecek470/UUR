@@ -1,4 +1,3 @@
-import * as React from 'react';
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -11,20 +10,21 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import StarBorder from '@mui/icons-material/StarBorder';
 import StartIcon from '@mui/icons-material/Start';
 import * as PropTypes from "prop-types";
-import {useRef} from "react";
+import {useRef,useState} from "react";
 import { useProfile } from './ProfileContext';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import {ListItem} from "@mui/material";
 import InboxTwoToneIcon from '@mui/icons-material/InboxTwoTone';
 import WindowTwoToneIcon from '@mui/icons-material/WindowTwoTone';
 import styles from './CategoriesColor.module.css';
+import DownloadFile from "./DownloadFile.jsx";
 
 
-const categories = ["Starting position", "finish", "Empty space", "Wall", "Lights", "Doors", "Solid objects", "Enemies", "Collectables", "Other"];
+
 
 
 function ExpandableItem(props) {
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = useState(true);
 
     const handleClick = () => {
         setOpen(!open);
@@ -67,7 +67,7 @@ function ExpandableItem(props) {
         }}>
 
             <ListItemIcon>
-                {props.Icon || <InboxIcon/>}
+                {props.icon || <InboxIcon/>}
             </ListItemIcon>
             <ListItemText primary={props.Category || "Default"}/>
             {open ? <ExpandLess/> : <ExpandMore/>}
@@ -102,30 +102,32 @@ ExpandableItem.propTypes = {
     open: PropTypes.bool,
     Category: PropTypes.string,
     Color: PropTypes.string,
-    Icon: PropTypes.element
+    Icon: PropTypes.string
 };
 
 function SimpleItem(props) {
-    const inputFile = useRef(null)
+    const inputFile = useRef(null);
+
+
+
     const onButtonClick = () => {
         inputFile.current.click();
     };
 
     // Get color from CSS module or fallback to provided Color prop
-    const categoryKey = props.Category?.toLowerCase().replace(' ', '') || '';
     const color = props.Color;
-
     return <ListItem className={styles.simple} style={{
         backgroundColor: color,
         borderRadius: 10,
         boxShadow: '0px 0px 33px rgba(0,0,0,0.75)',
         marginBottom: '10px'
     }}>
-        <ListItemIcon>
-            {props.Icon}
-        </ListItemIcon>
-        <input type='file' id='file' ref={inputFile} style={{display: 'none'}}/>
+        <img src={props.Icon==='default'?'../DefaultImg/'+props.Category+'.png':props.Icon} style={{width: '30px', height: '30px', borderRadius: '50%', marginRight: '10px' }} alt={props.Category} />
+
+
+        <DownloadFile/>
         <button onClick={onButtonClick}><FileUploadIcon/></button>
+
         <ListItemText style={{textAlign:"center"}} primary={props.Category}/>
     </ListItem>;
 }
@@ -133,7 +135,7 @@ function SimpleItem(props) {
 SimpleItem.propTypes = {
     Category: PropTypes.string,
     Color: PropTypes.string,
-    Icon: PropTypes.element
+    Icon: PropTypes.string
 };
 
 

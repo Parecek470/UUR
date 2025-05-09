@@ -1,14 +1,24 @@
-"profile": {
-    "name": "Default",
-    "description": "Default profile for all users.",
-    "settings": {
-        "theme": "light",
-        "language": "en-US",
-        "notifications": true
+{
+  "default": {
+    "startingpos": {
+      "icon": "default",
+      "required": true,
+      "expandable": false
     },
-    "permissions": {
-        "read": true,
-        "write": false,
-        "execute": false
+    "finish": {
+      "icon": "default",
+      "required": true,
+      "expandable": false
+    },
+    "emptyspace": {
+      "icon": "default",
+      "required": false,
+      "expandable": true
+    },
+    "wall": {
+      "icon": "default",
+      "required": true,
+      "expandable": true
     }
+  }
 }

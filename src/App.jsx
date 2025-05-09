@@ -13,8 +13,10 @@ function App() {
     return(<div>
         <SplitButton options={['new profile', 'profile','another profile']} onCreateMenu={setIsOpen}/>
         {isOpen&&<BasicModal isOpen={isOpen} setIsOpen={setIsOpen}>
+
             <NestedList/>
         </BasicModal>}
+
 
         <p>{isOpen?'true':'false'}</p>
     </div>);
