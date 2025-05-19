@@ -6,10 +6,9 @@ import Modal from '@mui/material/Modal';
 
 const style = {
     position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    left: '25%',
     width: '50%',
+    top: '15%',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -26,10 +25,11 @@ export default function BasicModal(props) {
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
+                style={{overflow:'scroll', overflowX:'auto', width:'100%', height:'100%'}}
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign:'center'}}>
-                        New Profile
+                        {props.title}
                     </Typography>
                     {props.children}
                 </Box>

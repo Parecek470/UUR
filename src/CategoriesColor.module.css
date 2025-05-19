@@ -1,33 +1,3 @@
-.startingposition {
-    background-color: #33ff43;
-}
-.finish {
-    background-color: indianred;
-}
-.emptyspace {
-    background-color: #66eac9;
-}
-.wall {
-    background-color: #802c2c;
-}
-.lights {
-    background-color: #ffff66;
-}
-.doors {
-    background-color: #8b4513;
-}
-.solidobjects {
-    background-color: #808080;
-}
-.enemies {
-    background-color: #ff0000;
-}
-.collectables {
-    background-color: #ffd700;
-}
-.other {
-    background-color: #9370db;
-}
 .simple {
     background-color: #70cfdb;
 }

@@ -1,24 +1,78 @@
 {
-  "default": {
-    "startingpos": {
+  "name": "New Profile",
+  "categories": {
+    "starting position": {
       "icon": "default",
       "required": true,
-      "expandable": false
+      "expandable": false,
+      "character": "@"
     },
     "finish": {
       "icon": "default",
       "required": true,
-      "expandable": false
+      "expandable": false,
+      "character":"{"
     },
-    "emptyspace": {
+    "empty space": {
       "icon": "default",
       "required": false,
-      "expandable": true
+      "expandable": true,
+      "options": [
+        {
+          "icon": "default",
+          "name": "vzduch",
+          "character": " "
+        }
+      ]
     },
     "wall": {
       "icon": "default",
       "required": true,
-      "expandable": true
+      "expandable": true,
+      "options": [
+        {
+          "icon": "default",
+          "name": "basic wall",
+          "character": "X"
+        }
+      ]
+    },
+    "light": {
+      "icon": "default",
+      "required": false,
+      "expandable": true,
+      "options": [
+
+      ]
+      },
+    "doors": {
+      "icon": "default",
+      "required": false,
+      "expandable": true,
+      "options": [
+
+      ]
+    },
+    "solid objects": {
+      "icon": "default",
+      "required": false,
+      "expandable": true,
+      "options": [
+      ]
+    },
+    "enemies": {
+      "icon": "default",
+      "required": false,
+      "expandable": true,
+      "options": [
+      ]
+    },
+    "collectables": {
+      "icon": "default",
+      "required": false,
+      "expandable": true,
+      "options": [
+      ]
     }
   }
 }

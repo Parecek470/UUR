@@ -13,50 +13,45 @@ import * as PropTypes from "prop-types";
 import {useRef,useState} from "react";
 import { useProfile } from './ProfileContext';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
-import {ListItem} from "@mui/material";
+import {ListItem, TextField} from "@mui/material";
 import InboxTwoToneIcon from '@mui/icons-material/InboxTwoTone';
 import WindowTwoToneIcon from '@mui/icons-material/WindowTwoTone';
 import styles from './CategoriesColor.module.css';
 import DownloadFile from "./DownloadFile.jsx";
+import AddIcon from '@mui/icons-material/Add';
+import {rgba} from "framer-motion";
+import Button from "@mui/material/Button";
 
 
 
 
 
 function ExpandableItem(props) {
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
+    const [options, setOptions] = useState(props.options||[]);
+    const [name, setName] = useState('');
+    const [char, setChar] = useState('');
 
     const handleClick = () => {
         setOpen(!open);
     };
 
+    const handleCharChange = (e) => {
+        if(e.target.value.length<2){
+            setChar(e.target.value);
+        }
+
+    }
+
+    const handleAdd = () => {
+        setOptions([...options,{icon: "default", name: name,character: char}]);
+        setName('');
+        setChar('');
+    }
+
     // Get color from CSS module or fallback to provided Color prop
     const color = props.Color;
 
-    const fadeColor = (color) => {
-        if (!color) return 'rgba(128, 128, 128, 0.7)'; // Default gray if no color
-
-        // Handle hex colors
-        if (color.startsWith('#')) {
-            // Remove the # and parse the hex values
-            const hex = color.substring(1);
-            // Handle both 3-digit and 6-digit hex
-            const r = parseInt(hex.length === 3 ? hex[0] + hex[0] : hex.substring(0, 2), 16);
-            const g = parseInt(hex.length === 3 ? hex[1] + hex[1] : hex.substring(2, 4), 16);
-            const b = parseInt(hex.length === 3 ? hex[2] + hex[2] : hex.substring(4, 6), 16);
-
-            if (isNaN(r) || isNaN(g) || isNaN(b)) {
-                return 'rgba(128, 128, 128, 0.7)'; // Default if parsing fails
-            }
-
-            return `rgba(${r}, ${g}, ${b}, 0.7)`;
-        }
-
-        // Handle rgb/rgba colors
-        const rgb = color.match(/\d+/g);
-        if (!rgb) return 'rgba(128, 128, 128, 0.7)'; // Default if color format is invalid
-        return `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.7)`;
-    };
 
     return <>
         <ListItem onClick={handleClick} className={styles.expandable} style={{
@@ -65,32 +60,37 @@ function ExpandableItem(props) {
             boxShadow: '0px 0px 33px rgba(0,0,0,0.75)',
             marginBottom: open ? 0 : '10px'
         }}>
-
-            <ListItemIcon>
-                {props.icon || <InboxIcon/>}
-            </ListItemIcon>
+            <img src={props.Icon==='default'?'../DefaultImg/'+props.Category+'.png':props.Icon} style={{width: '30px', height: '30px', borderRadius: '50%', marginRight: '10px',  }} alt={props.Category} />
             <ListItemText primary={props.Category || "Default"}/>
             {open ? <ExpandLess/> : <ExpandMore/>}
         </ListItem>
         <Collapse in={open} timeout='auto' unmountOnExit>
             <List component="div" disablePadding style={{
-                backgroundColor: fadeColor(color),
+                backgroundColor: "rgba(122,122,122,0.5)",
                 boxShadow: '0px 10px 33px rgba(0,0,0,0.75)',
                 marginBottom: '10px',
                 borderRadius: '0 0 10px 10px',
             }}>
+                {Object.entries(options).map(([key, value]) => (
+
+                    <ListItem sx={{pl: 4}}>
+                        <ListItemIcon>
+                            <StarBorder/>
+                        </ListItemIcon>
+                        <TextField id="outlined-disabled" label="Name" defaultValue={value.name} slotProps={{input: {readOnly:true,},}}/>
+                        <TextField id="outlined-disabled" label="Character" defaultValue={value.character} slotProps={{input: {readOnly:true,},}} />
+
+                    </ListItem>
+                ))}
                 <ListItem sx={{pl: 4}}>
                     <ListItemIcon>
-                        <StarBorder/>
+                        <AddIcon/>
                     </ListItemIcon>
-                    <ListItemText primary={color}/>
+                    <TextField id="outlined-helperText" label="Name" value={name} onChange={(e) => setName(e.target.value)}/>
+                    <TextField id="outlined-helperText" label="Character" value={char} onChange={handleCharChange}/>
+                    <Button style={{marginLeft:"10px"}} variant="contained" color="success" onClick={handleAdd} disabled={name.length === 0 && char.length!==1}>Add</Button>
                 </ListItem>
-                <ListItem sx={{pl: 4}}>
-                    <ListItemIcon>
-                        <StarBorder/>
-                    </ListItemIcon>
-                    <ListItemText primary={color}/>
-                </ListItem>
+
             </List>
         </Collapse>
 
@@ -108,13 +108,10 @@ ExpandableItem.propTypes = {
 function SimpleItem(props) {
     const inputFile = useRef(null);
 
-
-
     const onButtonClick = () => {
         inputFile.current.click();
     };
 
-    // Get color from CSS module or fallback to provided Color prop
     const color = props.Color;
     return <ListItem className={styles.simple} style={{
         backgroundColor: color,
@@ -124,11 +121,10 @@ function SimpleItem(props) {
     }}>
         <img src={props.Icon==='default'?'../DefaultImg/'+props.Category+'.png':props.Icon} style={{width: '30px', height: '30px', borderRadius: '50%', marginRight: '10px' }} alt={props.Category} />
 
-
-        <DownloadFile/>
         <button onClick={onButtonClick}><FileUploadIcon/></button>
 
         <ListItemText style={{textAlign:"center"}} primary={props.Category}/>
+        <ListItemText style={{textAlign:"right", marginRight:"30px"}} primary={props.Character}/>
     </ListItem>;
 }
 
@@ -148,11 +144,9 @@ export default function NestedList() {
             aria-labelledby="nested-list-subheader"
 
         >
-            {Object.entries(profile).map(([key, value]) => (
-                value.expandable?<ExpandableItem Category={key} Color={styles.expandable.color} Icon={value.icon}/>:
-                    <SimpleItem Category={key} Color={styles.simple.color} Icon={value.icon}/>
-
-
+            {Object.entries(profile.categories).map(([key, value]) => (
+                value.expandable?<ExpandableItem Category={key} Color={styles.expandable.color} Icon={value.icon} options={value.options||[]}/>:
+                    <SimpleItem Category={key} Color={styles.simple.color} Icon={value.icon} Character={value.character}/>
             ))}
 
         </List>
